@@ -88,6 +88,7 @@ class _MainPageState extends State<MainPage> with WidgetsBindingObserver {
   final ScrollController _scrollController = ScrollController();
   final ValueNotifier<double> scrollOffsetNotifier = ValueNotifier(0.0);
   bool _shouldAnimateIn = false;
+  bool _shouldAnimateIncard = false;
 
   @override
   void initState() {
@@ -97,6 +98,13 @@ class _MainPageState extends State<MainPage> with WidgetsBindingObserver {
       if (mounted) {
         setState(() {
           _shouldAnimateIn = true;
+        });
+      }
+    });
+    Future.delayed(const Duration(milliseconds: 3000), () {
+      if (mounted) {
+        setState(() {
+          _shouldAnimateIncard = true;
         });
       }
     });
@@ -137,15 +145,13 @@ class _MainPageState extends State<MainPage> with WidgetsBindingObserver {
     required String text,
     required int duration,
     required bool isVisible,
-    required double top,
-    left,
+
     required TextStyle? style,
   }) {
     return AnimatedPositioned(
       duration: Duration(milliseconds: duration),
       curve: Curves.easeOut,
-      top: isVisible ? top : top + 20,
-      left: isVisible ? left : left - 20,
+
       child: AnimatedOpacity(
         opacity: isVisible ? 1.0 : 0.0,
         duration: Duration(milliseconds: duration),
@@ -184,275 +190,334 @@ class _MainPageState extends State<MainPage> with WidgetsBindingObserver {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFFE0F4FF),
-      body: SingleChildScrollView(
-        controller: _scrollController,
-        child: Stack(
-          children: [
-            SizedBox(
-              height: MediaQuery.of(context).size.height,
-              child: Stack(
-                children: [
-                  animatedItem(
-                    isVisible: _shouldAnimateIn,
-                    duration: 1500,
-                    top: 20,
-                    right: -10,
-                    child: Container(
-                      width: 250,
-                      height: 250,
-                      decoration: const BoxDecoration(
-                        color: Color.fromARGB(255, 127, 183, 248),
-                        shape: BoxShape.circle,
-                      ),
-                    ),
-                  ),
-                  animatedItem(
-                    isVisible: _shouldAnimateIn,
-                    duration: 1500,
-                    top: 80,
-                    right: -10,
-                    child: Container(
-                      width: 170,
-                      height: 170,
-                      decoration: const BoxDecoration(
-                        color: Color.fromARGB(255, 240, 244, 249),
-                        shape: BoxShape.circle,
-                      ),
-                    ),
-                  ),
-                  animatedItem(
-                    isVisible: _shouldAnimateIn,
-                    duration: 1500,
-                    bottom: 100,
-                    right: 30,
-                    child: Container(
-                      width: 100,
-                      height: 100,
-                      decoration: const BoxDecoration(
-                        color: Color.fromARGB(255, 178, 222, 246),
-                        shape: BoxShape.circle,
-                      ),
-                    ),
-                  ),
-                  animatedItem(
-                    isVisible: _shouldAnimateIn,
-                    duration: 800,
-                    top: 50,
-                    left: 50,
-                    child: Container(
-                      width: 40,
-                      height: 40,
-                      decoration: const BoxDecoration(
-                        color: Color(0xFF6B8FD4),
-                        shape: BoxShape.circle,
-                      ),
-                    ),
-                  ),
-                  animatedItem(
-                    isVisible: _shouldAnimateIn,
-                    duration: 1500,
-                    bottom: 100,
-                    left: -50,
-                    child: Container(
-                      width: 250,
-                      height: 250,
-                      decoration: const BoxDecoration(
-                        color: Color(0xFF90D490),
-                        shape: BoxShape.circle,
-                      ),
-                    ),
-                  ),
-                  animatedItem(
-                    isVisible: _shouldAnimateIn,
-                    duration: 1800,
-                    top: 250,
-                    left: -150,
-                    child: Container(
-                      width: 300,
-                      height: 300,
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        shape: BoxShape.circle,
-                        border: Border.all(
-                          color: const Color(0xFF6B8FD4),
-                          width: 30,
-                        ),
-                      ),
-                      child: const Center(
-                        child: CircleAvatar(
-                          radius: 70,
-                          backgroundColor: Color(0xFF6B8FD4),
+      body: NotificationListener<ScrollNotification>(
+        onNotification: (notification) {
+          // スクロールが終了した時にのみ処理したい場合
+          if (notification is ScrollStartNotification) {
+            _shouldAnimateIncard = true;
+            setState(() {});
+          }
+          return false;
+        },
+
+        child: SingleChildScrollView(
+          controller: _scrollController,
+          child: Stack(
+            children: [
+              SizedBox(
+                height: MediaQuery.of(context).size.height,
+                child: Stack(
+                  children: [
+                    animatedItem(
+                      isVisible: _shouldAnimateIn,
+                      duration: 1500,
+                      top: 40,
+                      right: -10,
+                      child: Container(
+                        width: 250,
+                        height: 250,
+                        decoration: const BoxDecoration(
+                          color: Color.fromARGB(255, 127, 183, 248),
+                          shape: BoxShape.circle,
                         ),
                       ),
                     ),
-                  ),
-                  animatedTextItem(
-                    isVisible: _shouldAnimateIn,
-                    text: '鯱光祭\n三年劇チケット\n予約サイト',
-                    duration: 1500,
-                    top: 100,
-                    left: 20,
-                    style: const TextStyle(
-                      fontSize: 40,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black87,
-                    ),
-                  ),
-                  animatedTextItem(
-                    isVisible: _shouldAnimateIn,
-                    text: '77th Kokosai\nAsahigaoka High School',
-                    duration: 1800,
-                    top: 270,
-                    left: 20,
-                    style: const TextStyle(fontSize: 15, color: Colors.black54),
-                  ),
-                ],
-              ),
-            ),
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: AnimatedOpacity(
-                opacity: _shouldAnimateIn ? 1.0 : 0.0,
-                duration: const Duration(milliseconds: 1200),
-                curve: Curves.easeIn,
-                child: AnimatedContainer(
-                  duration: const Duration(milliseconds: 1200),
-                  curve: Curves.easeOut,
-                  transform: Matrix4.translationValues(
-                    0,
-                    _shouldAnimateIn ? 0 : 50,
-                    0,
-                  ),
-                  margin: const EdgeInsets.symmetric(vertical: 20),
-                  child: Center(
-                    child: Container(
-                      width: MediaQuery.of(context).size.width * 0.9,
-                      padding: const EdgeInsets.all(25),
-                      decoration: BoxDecoration(
-                        color: Colors.white.withValues(alpha: 0.9),
-                        borderRadius: BorderRadius.circular(20),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black.withValues(alpha: 0.1),
-                            offset: const Offset(5, 5),
-                            blurRadius: 15,
-                          ),
-                        ],
+                    animatedItem(
+                      isVisible: _shouldAnimateIn,
+                      duration: 1500,
+                      top: 100,
+                      right: -10,
+                      child: Container(
+                        width: 170,
+                        height: 170,
+                        decoration: const BoxDecoration(
+                          color: Color.fromARGB(255, 240, 244, 249),
+                          shape: BoxShape.circle,
+                        ),
                       ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Icon(
-                            Icons.confirmation_number,
-                            size: 30,
+                    ),
+                    animatedItem(
+                      isVisible: _shouldAnimateIn,
+                      duration: 1500,
+                      bottom: 100,
+                      right: 30,
+                      child: Container(
+                        width: 100,
+                        height: 100,
+                        decoration: const BoxDecoration(
+                          color: Color.fromARGB(255, 178, 222, 246),
+                          shape: BoxShape.circle,
+                        ),
+                      ),
+                    ),
+
+                    animatedItem(
+                      isVisible: _shouldAnimateIn,
+                      duration: 1500,
+                      bottom: 100,
+                      left: -50,
+                      child: Container(
+                        width: 250,
+                        height: 250,
+                        decoration: const BoxDecoration(
+                          color: Color(0xFF90D490),
+                          shape: BoxShape.circle,
+                        ),
+                      ),
+                    ),
+                    animatedItem(
+                      isVisible: _shouldAnimateIn,
+                      duration: 1800,
+                      top: 250,
+                      left: -150,
+                      child: Container(
+                        width: 300,
+                        height: 300,
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          shape: BoxShape.circle,
+                          border: Border.all(
                             color: const Color(0xFF6B8FD4),
+                            width: 30,
                           ),
-                          Text(
-                            "三年劇チケット予約について",
-                            style: TextStyle(
-                              fontSize: 25,
-                              fontFamily: 'NotoSansJP',
-                              fontWeight: FontWeight.bold,
-                              color: Colors.black.withValues(alpha: 0.8),
+                        ),
+                        child: const Center(
+                          child: CircleAvatar(
+                            radius: 70,
+                            backgroundColor: Color(0xFF6B8FD4),
+                          ),
+                        ),
+                      ),
+                    ),
+
+                    SingleChildScrollView(
+                      child: Column(
+                        children: [
+                          SizedBox(
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                Column(
+                                  children: [
+                                    SizedBox(height: 50),
+                                    animatedTextItem(
+                                      isVisible: _shouldAnimateIn,
+                                      text: '鯱光祭\n三年劇チケット\n予約サイト',
+                                      duration: 2000,
+
+                                      style: const TextStyle(
+                                        fontSize: 30,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.black54,
+                                      ),
+                                    ),
+                                    animatedTextItem(
+                                      isVisible: _shouldAnimateIn,
+                                      text:
+                                          '77th Kokosai\nAsahigaoka High School',
+                                      duration: 2200,
+
+                                      style: const TextStyle(
+                                        fontSize: 15,
+                                        color: Colors.black54,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                SizedBox(width: 50),
+                              ],
                             ),
                           ),
-                          const SizedBox(height: 10),
-                          Text(
-                            "予約は抽選制です\n募集締め切り＆抽選は9/25です",
-                            style: TextStyle(
-                              fontSize: 25,
-                              color: const Color.fromARGB(255, 255, 0, 0),
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          Text(
-                            "・劇の予約は一人につき3件まで可能です。ただし同じ時間帯の予約は1件しかできません。\n・抽選結果は9/25にメールでお知らせします。\n・メールアドレスは複数使用しないでください。",
-                            style: TextStyle(
-                              fontSize: 16,
-                              color: Colors.black.withValues(alpha: 0.7),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(top: 20.0),
-                            child: ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: const Color(0xFF6B8FD4),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(15.0),
+
+                          SizedBox(height: 30),
+                          Align(
+                            alignment: Alignment.bottomCenter,
+                            child: AnimatedOpacity(
+                              opacity: _shouldAnimateIncard ? 1.0 : 0.0,
+                              duration: const Duration(milliseconds: 1200),
+                              curve: Curves.easeIn,
+                              child: AnimatedContainer(
+                                duration: const Duration(milliseconds: 1800),
+                                curve: Curves.easeOut,
+                                transform: Matrix4.translationValues(
+                                  0,
+                                  _shouldAnimateIncard ? 0 : 50,
+                                  0,
+                                ),
+                                margin: const EdgeInsets.symmetric(
+                                  vertical: 20,
+                                ),
+                                child: Center(
+                                  child: Container(
+                                    width:
+                                        MediaQuery.of(context).size.width * 0.9,
+                                    padding: const EdgeInsets.all(25),
+                                    decoration: BoxDecoration(
+                                      color: Colors.white.withValues(
+                                        alpha: 0.9,
+                                      ),
+                                      borderRadius: BorderRadius.circular(20),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.black.withValues(
+                                            alpha: 0.1,
+                                          ),
+                                          offset: const Offset(5, 5),
+                                          blurRadius: 15,
+                                        ),
+                                      ],
+                                    ),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        Icon(
+                                          Icons.confirmation_number,
+                                          size: 30,
+                                          color: const Color(0xFF6B8FD4),
+                                        ),
+                                        Text(
+                                          "三年劇チケット予約について",
+                                          style: TextStyle(
+                                            fontSize: 25,
+                                            fontFamily: 'NotoSansJP',
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.black.withValues(
+                                              alpha: 0.8,
+                                            ),
+                                          ),
+                                        ),
+                                        const SizedBox(height: 10),
+                                        Text(
+                                          "予約は抽選制です\n募集締め切り＆抽選は9/25です",
+                                          style: TextStyle(
+                                            fontSize: 25,
+                                            color: const Color.fromARGB(
+                                              255,
+                                              255,
+                                              0,
+                                              0,
+                                            ),
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                        Text(
+                                          "・劇の予約は一人につき3件まで可能です。ただし同じ時間帯の予約は1件しかできません。\n・抽選結果は9/25にメールでお知らせします。\n・メールアドレスは複数使用しないでください。",
+                                          style: TextStyle(
+                                            fontSize: 16,
+                                            color: Colors.black.withValues(
+                                              alpha: 0.7,
+                                            ),
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.only(
+                                            top: 20.0,
+                                          ),
+                                          child: ElevatedButton(
+                                            style: ElevatedButton.styleFrom(
+                                              backgroundColor: const Color(
+                                                0xFF6B8FD4,
+                                              ),
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(15.0),
+                                              ),
+                                            ),
+                                            onPressed: () {
+                                              Navigator.of(context).push(
+                                                MaterialPageRoute(
+                                                  builder:
+                                                      (context) => TicketPage(),
+                                                ),
+                                              );
+                                            },
+                                            child: Text(
+                                              "予約選択へ",
+                                              style: const TextStyle(
+                                                color: Colors.white,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                        SizedBox(height: 5),
+                                        TextButton(
+                                          onPressed: () {
+                                            UrlLauncherUtil.launch(
+                                              url:
+                                                  'https://tickets.kokosai.jp/faq',
+                                              context: context,
+                                            );
+                                          },
+                                          child: Text("その他の予約に関する説明はこちらから"),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
                                 ),
                               ),
-                              onPressed: () {
-                                Navigator.of(context).push(
-                                  MaterialPageRoute(
-                                    builder: (context) => TicketPage(),
+                            ),
+                          ),
+                          Align(
+                            alignment: Alignment.bottomCenter,
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(
+                                vertical: 20.0,
+                              ),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  TextButton(
+                                    onPressed: () {
+                                      UrlLauncherUtil.launch(
+                                        url:
+                                            'https://tickets.kokosai.jp/privacy',
+                                        context: context,
+                                      );
+                                    },
+                                    child: const Text(
+                                      'プライバシーポリシー',
+                                      style: TextStyle(
+                                        color: Color(0xFF6B8FD4),
+                                      ),
+                                    ),
                                   ),
-                                );
-                              },
-                              child: Text(
-                                "予約選択へ",
-                                style: const TextStyle(color: Colors.white),
+                                  const Padding(
+                                    padding: EdgeInsets.symmetric(
+                                      horizontal: 8.0,
+                                    ),
+                                    child: Text(
+                                      '|',
+                                      style: TextStyle(color: Colors.grey),
+                                    ),
+                                  ),
+                                  TextButton(
+                                    onPressed: () {
+                                      UrlLauncherUtil.launch(
+                                        url:
+                                            'https://tickets.kokosai.jp/disclaimer',
+                                        context: context,
+                                      );
+                                    },
+                                    child: const Text(
+                                      '免責事項',
+                                      style: TextStyle(
+                                        color: Color(0xFF6B8FD4),
+                                      ),
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
                           ),
-                          SizedBox(height: 5),
-                          TextButton(
-                            onPressed: () {
-                              UrlLauncherUtil.launch(
-                                url: 'https://tickets.kokosai.jp/faq',
-                                context: context,
-                              );
-                            },
-                            child: Text("その他の予約に関する説明はこちらから"),
-                          ),
                         ],
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ),
-            const SizedBox(height: 50),
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: Padding(
-                padding: const EdgeInsets.symmetric(vertical: 20.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    TextButton(
-                      onPressed: () {
-                        UrlLauncherUtil.launch(
-                          url: 'https://tickets.kokosai.jp/privacy',
-                          context: context,
-                        );
-                      },
-                      child: const Text(
-                        'プライバシーポリシー',
-                        style: TextStyle(color: Color(0xFF6B8FD4)),
-                      ),
-                    ),
-                    const Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 8.0),
-                      child: Text('|', style: TextStyle(color: Colors.grey)),
-                    ),
-                    TextButton(
-                      onPressed: () {
-                        UrlLauncherUtil.launch(
-                          url: 'https://tickets.kokosai.jp/disclaimer',
-                          context: context,
-                        );
-                      },
-                      child: const Text(
-                        '免責事項',
-                        style: TextStyle(color: Color(0xFF6B8FD4)),
                       ),
                     ),
                   ],
                 ),
               ),
-            ),
-            const SizedBox(height: 50),
-          ],
+            ],
+          ),
         ),
       ),
     );
@@ -553,6 +618,7 @@ class _TicketPageState extends State<TicketPage> {
         '202509$date${timeParts[0].toString().padLeft(2, '0')}${timeParts[1].toString().padLeft(2, '0')}',
       );
     }
+
     _allPerformances.sort((a, b) {
       return getDateTimeSortKey(a).compareTo(getDateTimeSortKey(b));
     });
