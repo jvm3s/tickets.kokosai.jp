@@ -304,7 +304,7 @@ class _MainPageState extends State<MainPage> with WidgetsBindingObserver {
                                       style: const TextStyle(
                                         fontSize: 30,
                                         fontWeight: FontWeight.bold,
-                                        color: Colors.black54,
+                                        color: Colors.black87,
                                       ),
                                     ),
                                     animatedTextItem(
@@ -315,7 +315,7 @@ class _MainPageState extends State<MainPage> with WidgetsBindingObserver {
 
                                       style: const TextStyle(
                                         fontSize: 15,
-                                        color: Colors.black54,
+                                        color: Colors.black87,
                                       ),
                                     ),
                                   ],
