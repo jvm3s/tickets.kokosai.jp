@@ -148,16 +148,11 @@ class _MainPageState extends State<MainPage> with WidgetsBindingObserver {
 
     required TextStyle? style,
   }) {
-    return AnimatedPositioned(
+    return AnimatedOpacity(
+      opacity: isVisible ? 1.0 : 0.0,
       duration: Duration(milliseconds: duration),
-      curve: Curves.easeOut,
-
-      child: AnimatedOpacity(
-        opacity: isVisible ? 1.0 : 0.0,
-        duration: Duration(milliseconds: duration),
-        curve: Curves.easeIn,
-        child: Text(text, style: style),
-      ),
+      curve: Curves.easeIn,
+      child: Text(text, style: style),
     );
   }
 
@@ -298,6 +293,7 @@ class _MainPageState extends State<MainPage> with WidgetsBindingObserver {
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
                                 Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     SizedBox(height: 50),
                                     animatedTextItem(
