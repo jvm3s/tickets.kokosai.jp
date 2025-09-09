@@ -811,7 +811,7 @@ class _TicketPageState extends State<TicketPage> {
                           style: TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.w400,
-                            color: Colors.white.withOpacity(0.8),
+                            color: Colors.white.withOpacity(0.9),
                           ),
                         ),
                         const SizedBox(height: 4),
@@ -828,7 +828,7 @@ class _TicketPageState extends State<TicketPage> {
                           '${performance.date} ${performance.time} @${performance.venue}',
                           style: TextStyle(
                             fontSize: 25,
-                            color: Colors.white.withOpacity(0.8),
+                            color: Colors.white.withOpacity(0.9),
                           ),
                         ),
                         const SizedBox(height: 8),
@@ -836,7 +836,7 @@ class _TicketPageState extends State<TicketPage> {
                           performance.prText,
                           style: TextStyle(
                             fontSize: 20,
-                            color: Colors.white.withOpacity(0.7),
+                            color: Colors.white.withOpacity(0.8),
                           ),
                           maxLines: 2,
                           overflow: TextOverflow.ellipsis,
