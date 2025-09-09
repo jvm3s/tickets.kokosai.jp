@@ -1,3 +1,4 @@
+// main.dart
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -145,7 +146,6 @@ class _MainPageState extends State<MainPage> with WidgetsBindingObserver {
     required String text,
     required int duration,
     required bool isVisible,
-
     required TextStyle? style,
   }) {
     return AnimatedOpacity(
@@ -194,7 +194,6 @@ class _MainPageState extends State<MainPage> with WidgetsBindingObserver {
           }
           return false;
         },
-
         child: SingleChildScrollView(
           controller: _scrollController,
           child: Stack(
@@ -245,7 +244,6 @@ class _MainPageState extends State<MainPage> with WidgetsBindingObserver {
                         ),
                       ),
                     ),
-
                     animatedItem(
                       isVisible: _shouldAnimateIn,
                       duration: 1500,
@@ -284,7 +282,6 @@ class _MainPageState extends State<MainPage> with WidgetsBindingObserver {
                         ),
                       ),
                     ),
-
                     SingleChildScrollView(
                       child: Column(
                         children: [
@@ -300,7 +297,6 @@ class _MainPageState extends State<MainPage> with WidgetsBindingObserver {
                                       isVisible: _shouldAnimateIn,
                                       text: '鯱光祭\n三年劇チケット\n予約サイト',
                                       duration: 2000,
-
                                       style: const TextStyle(
                                         fontSize: 30,
                                         fontWeight: FontWeight.bold,
@@ -312,7 +308,6 @@ class _MainPageState extends State<MainPage> with WidgetsBindingObserver {
                                       text:
                                           '77th Kokosai\nAsahigaoka High School',
                                       duration: 2200,
-
                                       style: const TextStyle(
                                         fontSize: 15,
                                         color: Colors.black87,
@@ -324,7 +319,6 @@ class _MainPageState extends State<MainPage> with WidgetsBindingObserver {
                               ],
                             ),
                           ),
-
                           SizedBox(height: 30),
                           Align(
                             alignment: Alignment.bottomCenter,
@@ -349,15 +343,11 @@ class _MainPageState extends State<MainPage> with WidgetsBindingObserver {
                                         MediaQuery.of(context).size.width * 0.9,
                                     padding: const EdgeInsets.all(25),
                                     decoration: BoxDecoration(
-                                      color: Colors.white.withValues(
-                                        alpha: 0.9,
-                                      ),
+                                      color: Colors.white.withOpacity(0.9),
                                       borderRadius: BorderRadius.circular(20),
                                       boxShadow: [
                                         BoxShadow(
-                                          color: Colors.black.withValues(
-                                            alpha: 0.1,
-                                          ),
+                                          color: Colors.black.withOpacity(0.1),
                                           offset: const Offset(5, 5),
                                           blurRadius: 15,
                                         ),
@@ -378,8 +368,8 @@ class _MainPageState extends State<MainPage> with WidgetsBindingObserver {
                                             fontSize: 25,
                                             fontFamily: 'NotoSansJP',
                                             fontWeight: FontWeight.bold,
-                                            color: Colors.black.withValues(
-                                              alpha: 0.8,
+                                            color: Colors.black.withOpacity(
+                                              0.8,
                                             ),
                                           ),
                                         ),
@@ -401,8 +391,8 @@ class _MainPageState extends State<MainPage> with WidgetsBindingObserver {
                                           "・劇の予約は一人につき3件まで可能です。ただし同じ時間帯の予約は1件しかできません。\n・抽選結果は9/25にメールでお知らせします。\n・メールアドレスは複数使用しないでください。",
                                           style: TextStyle(
                                             fontSize: 16,
-                                            color: Colors.black.withValues(
-                                              alpha: 0.7,
+                                            color: Colors.black.withOpacity(
+                                              0.7,
                                             ),
                                           ),
                                         ),
@@ -528,9 +518,33 @@ class TicketPage extends StatefulWidget {
 }
 
 class _TicketPageState extends State<TicketPage> {
-  final ValueNotifier<double> scrollOffsetNotifier = ValueNotifier(0.0);
   final Map<String, PerformanceData> _selectedPerformances = {};
+
   final List<PerformanceData> _allPerformances = [
+    PerformanceData(
+      classnumber: "301",
+      title: '心が叫びたがってるんだ。',
+      venue: '武道場',
+      date: '9月28日（日）',
+      time: '9:30~11:00',
+      prText: '伝えたい想いがある。言葉にできない心の叫びが、静かに、けれど確かに響き合う、切なくも温かい青春の物語。',
+    ),
+    PerformanceData(
+      classnumber: "302",
+      title: 'オペラ座の怪人',
+      venue: '鯱光館',
+      date: '9月28日（日）',
+      time: '9:30~11:00',
+      prText: 'オペラ座に響く、届かぬ恋と運命の物語。仮面に隠した想いが、舞台で動き出す＿\n旭丘史上、最高の劇を見逃すな！',
+    ),
+    PerformanceData(
+      classnumber: "303",
+      title: 'RRR-Re:Ramayana×mahabhaRata',
+      venue: '鯱光館',
+      date: '9月27日（土）',
+      time: '13:00~14:30',
+      prText: '友情か使命か。全ての次元を越えた出逢いを繋ぐ、インド映画の最高峰。',
+    ),
     PerformanceData(
       classnumber: "304",
       title: 'KINGDOM',
@@ -558,12 +572,12 @@ class _TicketPageState extends State<TicketPage> {
           '秘密の力を持った姉エルサと運命の恋を夢見る妹アナの姉妹が織りなす、アレンデール王国を巡る魔法と感動の物語。\n「少しも寒くない」この夏、小体育館で魔法にかかろう！',
     ),
     PerformanceData(
-      classnumber: "303",
-      title: 'RRR-Re:Ramayana×mahabhaRata',
-      venue: '鯱光館',
-      date: '9月27日（土）',
-      time: '13:00~14:30',
-      prText: '友情か使命か。全ての次元を越えた出逢いを繋ぐ、インド映画の最高峰。',
+      classnumber: "307",
+      title: 'LA LA LAND',
+      venue: '小体育館',
+      date: '9月28日（日）',
+      time: '9:30~11:00',
+      prText: 'ミュージカルの魔法があなたを包む\n極上のエンターテイメント\nようこそLA LA LANDの世界へ！',
     ),
     PerformanceData(
       classnumber: "308",
@@ -581,99 +595,54 @@ class _TicketPageState extends State<TicketPage> {
       time: '13:00~14:30',
       prText: '名前を書かれた人間は死ぬ——。圧倒的な頭脳を持つ二人が繰り広げる、命を懸けた壮絶な心理戦。果たして、本当の“正義”とは何か？',
     ),
-    PerformanceData(
-      classnumber: "301",
-      title: '心が叫びたがってるんだ。',
-      venue: '武道場',
-      date: '9月28日（日）',
-      time: '9:30~11:00',
-      prText: '伝えたい想いがある。言葉にできない心の叫びが、静かに、けれど確かに響き合う、切なくも温かい青春の物語。',
-    ),
-    PerformanceData(
-      classnumber: "302",
-      title: 'オペラ座の怪人',
-      venue: '鯱光館',
-      date: '9月28日（日）',
-      time: '9:30~11:00',
-      prText: 'オペラ座に響く、届かぬ恋と運命の物語。仮面に隠した想いが、舞台で動き出す＿\n旭丘史上、最高の劇を見逃すな！',
-    ),
-    PerformanceData(
-      classnumber: "307",
-      title: 'LA LA LAND',
-      venue: '小体育館',
-      date: '9月28日（日）',
-      time: '9:30~11:00',
-      prText: 'ミュージカルの魔法があなたを包む\n極上のエンターテイメント\nようこそLA LA LANDの世界へ！',
-    ),
   ];
-  Map<String, List<PerformanceData>> get _groupedAndSortedPerformances {
-    int getDateTimeSortKey(PerformanceData p) {
-      final date = p.date.contains('土') ? '27' : '28';
-      final timeParts = p.time.split('~')[0].split(':').map(int.parse).toList();
-      return int.parse(
-        '202509$date${timeParts[0].toString().padLeft(2, '0')}${timeParts[1].toString().padLeft(2, '0')}',
-      );
-    }
 
-    _allPerformances.sort((a, b) {
-      return getDateTimeSortKey(a).compareTo(getDateTimeSortKey(b));
-    });
-    final Map<String, List<PerformanceData>> groups = {};
-    for (var performance in _allPerformances) {
-      final key = '${performance.date} ${performance.time}';
-      if (!groups.containsKey(key)) {
-        groups[key] = [];
-      }
-      groups[key]!.add(performance);
-    }
-    return groups;
-  }
-
-  void _handleSelection(PerformanceData classNo, String timeSlot) {
+  void _handleSelection(String timeSlot, PerformanceData performance) {
     setState(() {
       if (_selectedPerformances.containsKey(timeSlot)) {
-        if (_selectedPerformances[timeSlot] == classNo) {
-          _selectedPerformances.remove(timeSlot);
-        } else {
-          _selectedPerformances[timeSlot] = classNo;
-        }
-      } else {
-        if (_selectedPerformances.length < 3) {
-          _selectedPerformances[timeSlot] = classNo;
-        } else {
+        if (_selectedPerformances[timeSlot]?.classnumber !=
+            performance.classnumber) {
           ScaffoldMessenger.of(context).clearSnackBars();
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
-              content: Text('3つまでしか選択できません。'),
+              content: Text('同時間帯は1つしか選択できません。'),
               duration: Duration(seconds: 2),
             ),
           );
+          return;
+        } else {
+          _selectedPerformances.remove(timeSlot);
         }
+      } else {
+        _selectedPerformances[timeSlot] = performance;
       }
     });
   }
 
-  Widget performanceCard({
+  // 元のコンテナデザインのパフォーマンスカード
+  Widget _buildPerformanceCard({
     required BuildContext context,
     required PerformanceData performance,
-    required bool isSelected,
-    required VoidCallback onSelected,
   }) {
+    final timeSlot = '${performance.date} ${performance.time}';
+    final isSelected =
+        _selectedPerformances[timeSlot]?.classnumber == performance.classnumber;
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
       child: GestureDetector(
-        onTap: onSelected,
+        onTap: () {
+          _handleSelection(timeSlot, performance);
+        },
         child: Container(
-          width: MediaQuery.of(context).size.width * 0.9,
           decoration: BoxDecoration(
             color:
                 isSelected
-                    ? const Color(0xFF6B8FD4).withValues(alpha: 0.2)
-                    : Colors.white.withValues(alpha: 0.9),
-            borderRadius: BorderRadius.circular(20), // 外側のコンテナの角丸
+                    ? const Color(0xFF6B8FD4).withOpacity(0.2)
+                    : Colors.white.withOpacity(0.9),
+            borderRadius: BorderRadius.circular(20),
             boxShadow: [
               BoxShadow(
-                color: Colors.black.withValues(alpha: 0.1),
+                color: Colors.black.withOpacity(0.1),
                 offset: const Offset(5, 5),
                 blurRadius: 15,
               ),
@@ -687,14 +656,14 @@ class _TicketPageState extends State<TicketPage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               AspectRatio(
-                aspectRatio: 16 / 9, // ここでアスペクト比を設定（例: 16:9）
+                aspectRatio: 16 / 9,
                 child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: const BorderRadius.vertical(
-                      top: Radius.circular(18), // 上部の角丸を外側のコンテナに合わせる
+                  decoration: const BoxDecoration(
+                    borderRadius: BorderRadius.vertical(
+                      top: Radius.circular(18),
                     ),
                   ),
-                  clipBehavior: Clip.antiAlias, // 角丸を適用するために追加
+                  clipBehavior: Clip.antiAlias,
                   child: Image.asset(
                     "lib/assets/img/${performance.classnumber}.png",
                     fit: BoxFit.cover,
@@ -705,7 +674,7 @@ class _TicketPageState extends State<TicketPage> {
                 padding: const EdgeInsets.symmetric(
                   horizontal: 20,
                   vertical: 15,
-                ), // ここで内側の余白を少し追加
+                ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -714,7 +683,7 @@ class _TicketPageState extends State<TicketPage> {
                       style: TextStyle(
                         fontSize: 24,
                         fontWeight: FontWeight.bold,
-                        color: Colors.black.withValues(alpha: 0.8),
+                        color: Colors.black.withOpacity(0.8),
                       ),
                     ),
                     const SizedBox(height: 10),
@@ -722,31 +691,28 @@ class _TicketPageState extends State<TicketPage> {
                       'クラス: ${performance.classnumber}',
                       style: TextStyle(
                         fontSize: 16,
-                        color: Colors.black.withValues(alpha: 0.6),
+                        color: Colors.black.withOpacity(0.6),
                       ),
                     ),
                     const SizedBox(height: 5),
-                    Text(
-                      '上演場所: ${performance.venue}',
-                      style: TextStyle(
-                        fontSize: 16,
-                        color: Colors.black.withValues(alpha: 0.6),
+                    Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(8),
+                        color: const Color(0xFF6B8FD4),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(2.0),
+                        child: Text(
+                          "  ${performance.date} ${performance.time}  @${performance.venue}  ",
+                          style: const TextStyle(color: Colors.white),
+                        ),
                       ),
                     ),
-                    const SizedBox(height: 5),
-                    Text(
-                      '上演時間: ${performance.time}',
-                      style: TextStyle(
-                        fontSize: 16,
-                        color: Colors.black.withValues(alpha: 0.6),
-                      ),
-                    ),
-                    const SizedBox(height: 15),
                     Text(
                       performance.prText,
                       style: TextStyle(
                         fontSize: 14,
-                        color: Colors.black.withValues(alpha: 0.7),
+                        color: Colors.black.withOpacity(0.7),
                       ),
                     ),
                     const SizedBox(height: 20),
@@ -761,7 +727,9 @@ class _TicketPageState extends State<TicketPage> {
                             borderRadius: BorderRadius.circular(15.0),
                           ),
                         ),
-                        onPressed: onSelected,
+                        onPressed: () {
+                          _handleSelection(timeSlot, performance);
+                        },
                         child: Text(
                           isSelected ? '選択済み' : '選択する',
                           style: const TextStyle(color: Colors.white),
@@ -778,115 +746,226 @@ class _TicketPageState extends State<TicketPage> {
     );
   }
 
+  // 大画面向けのパフォーマンス表示ウィジェット
+  Widget _buildPerformanceDisplay({
+    required BuildContext context,
+    required PerformanceData performance,
+  }) {
+    final timeSlot = '${performance.date} ${performance.time}';
+    final isSelected =
+        _selectedPerformances[timeSlot]?.classnumber == performance.classnumber;
+
+    return GestureDetector(
+      onTap: () {
+        _handleSelection(timeSlot, performance);
+      },
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 200),
+        margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 0),
+        color: isSelected ? Colors.blue.shade50.withOpacity(0.5) : Colors.white,
+        child: Column(
+          children: [
+            AspectRatio(
+              aspectRatio: 16 / 9,
+              child: Stack(
+                children: [
+                  Positioned.fill(
+                    child: Image.asset(
+                      "lib/assets/img/${performance.classnumber}.png",
+                      fit: BoxFit.cover,
+                      errorBuilder: (context, error, stackTrace) {
+                        return Container(
+                          color: Colors.grey.shade300,
+                          child: const Center(
+                            child: Icon(
+                              Icons.image,
+                              color: Colors.grey,
+                              size: 48,
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                  Container(
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                        colors: [
+                          Colors.black.withOpacity(0.3),
+                          Colors.black.withOpacity(0.5),
+                        ],
+                      ),
+                    ),
+                  ),
+                  Positioned(
+                    bottom: 20,
+                    left: 20,
+                    right: 20,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          performance.classnumber,
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.w400,
+                            color: Colors.white.withOpacity(0.8),
+                          ),
+                        ),
+                        const SizedBox(height: 4),
+                        Text(
+                          performance.title,
+                          style: const TextStyle(
+                            fontSize: 28,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          ),
+                        ),
+                        const SizedBox(height: 8),
+                        Text(
+                          '${performance.date} ${performance.time} @${performance.venue}',
+                          style: TextStyle(
+                            fontSize: 25,
+                            color: Colors.white.withOpacity(0.8),
+                          ),
+                        ),
+                        const SizedBox(height: 8),
+                        Text(
+                          performance.prText,
+                          style: TextStyle(
+                            fontSize: 20,
+                            color: Colors.white.withOpacity(0.7),
+                          ),
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                        const SizedBox(height: 16),
+                        Center(
+                          child: ElevatedButton(
+                            onPressed: () {
+                              _handleSelection(timeSlot, performance);
+                            },
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor:
+                                  isSelected
+                                      ? Colors.green.shade400
+                                      : Colors.blue.shade600,
+                              foregroundColor: Colors.white,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 30,
+                                vertical: 15,
+                              ),
+                              elevation: 0,
+                            ),
+                            child: Text(
+                              isSelected ? '選択済み' : '選択する',
+                              style: const TextStyle(
+                                fontWeight: FontWeight.w600,
+                                fontSize: 16,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Divider(height: 1, color: Colors.grey.shade200),
+          ],
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    final grouped = _groupedAndSortedPerformances;
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('チケットを予約', style: TextStyle(color: Colors.white)),
-        backgroundColor: const Color(0xFF6B8FD4),
-        centerTitle: true,
-        iconTheme: const IconThemeData(color: Colors.white),
-      ),
-      backgroundColor: const Color(0xFFE0F4FF),
-      body: SingleChildScrollView(
-        child: Center(
-          child: Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: Text(
-                  '上演作品一覧',
-                  style: TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black.withValues(alpha: 0.7),
+    return LayoutBuilder(
+      builder: (BuildContext context, BoxConstraints constraints) {
+        // 画面の横幅をチェック
+        final bool isLargeScreen = constraints.maxWidth > 800;
+
+        return Scaffold(
+          backgroundColor: Colors.white,
+          body: CustomScrollView(
+            slivers: [
+              SliverAppBar(
+                backgroundColor: const Color(0xFFE0F4FF),
+                title: Center(
+                  child: Text(
+                    "チケットを選択",
+                    style: TextStyle(
+                      color: Colors.black54,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
               ),
-              ...grouped.entries.map((entry) {
-                final timeSlot = entry.key;
-                final performancesInSlot = entry.value;
-                return Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(
-                        left: 20.0,
-                        right: 20.0,
-                        top: 20.0,
-                        bottom: 10.0,
-                      ),
-                      child: Text(
-                        '開催時間帯：$timeSlot',
-                        style: const TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                          color: Color(0xFF6B8FD4),
-                        ),
-                      ),
-                    ),
-                    ...performancesInSlot.map((performance) {
-                      final isSelected =
-                          _selectedPerformances[timeSlot] == performance;
-                      return performanceCard(
-                        context: context,
-                        performance: performance,
-                        isSelected: isSelected,
-                        onSelected:
-                            () => _handleSelection(performance, timeSlot),
-                      );
-                    }),
-                  ],
-                );
-              }),
-              const SizedBox(height: 100),
+              SliverList(
+                delegate: SliverChildBuilderDelegate((
+                  BuildContext context,
+                  int index,
+                ) {
+                  final performance = _allPerformances[index];
+                  if (isLargeScreen) {
+                    return _buildPerformanceDisplay(
+                      context: context,
+                      performance: performance,
+                    );
+                  } else {
+                    return _buildPerformanceCard(
+                      context: context,
+                      performance: performance,
+                    );
+                  }
+                }, childCount: _allPerformances.length),
+              ),
             ],
           ),
-        ),
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      floatingActionButton: AnimatedOpacity(
-        opacity: _selectedPerformances.isNotEmpty ? 1.0 : 0.0,
-        duration: const Duration(milliseconds: 300),
-        child: IgnorePointer(
-          ignoring: _selectedPerformances.isEmpty,
-          child: ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              backgroundColor: const Color.fromARGB(
-                255,
-                213,
-                228,
-                255,
-              ).withValues(alpha: 0.9),
-              shape: RoundedRectangleBorder(
-                side: BorderSide(color: Colors.blue),
-                borderRadius: BorderRadius.circular(15.0),
-              ),
-              padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 15),
+          bottomNavigationBar: Container(
+            padding: const EdgeInsets.all(16),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              border: Border(top: BorderSide(color: Colors.grey.shade200)),
             ),
-            onPressed: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder:
-                      (context) => ConfirmationPage(
-                        selectedPerformances:
-                            _selectedPerformances.values.toList(),
-                      ),
+            child: ElevatedButton(
+              onPressed:
+                  _selectedPerformances.isNotEmpty
+                      ? () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder:
+                                (context) => ConfirmationPage(
+                                  selectedPerformances:
+                                      _selectedPerformances.values.toList(),
+                                ),
+                          ),
+                        );
+                      }
+                      : null,
+              style: ElevatedButton.styleFrom(
+                backgroundColor: const Color(0xFF6B8FD4),
+                foregroundColor: Colors.white,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(15.0),
                 ),
-              );
-            },
-            child: const Text(
-              '選択を確定する',
-              style: TextStyle(
-                color: Color.fromARGB(255, 0, 0, 0),
-                fontSize: 18,
-                fontWeight: FontWeight.w300,
+                padding: const EdgeInsets.symmetric(vertical: 16),
+                elevation: 0,
+              ),
+              child: const Text(
+                '確定',
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
             ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 }
@@ -933,7 +1012,7 @@ class ConfirmationPage extends StatelessWidget {
                         "${data.classnumber} ${data.title}",
                         style: TextStyle(
                           fontSize: 18,
-                          color: Colors.black.withValues(alpha: 0.8),
+                          color: Colors.black.withOpacity(0.8),
                         ),
                       ),
                     ),
