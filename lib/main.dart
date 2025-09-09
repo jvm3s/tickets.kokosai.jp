@@ -897,13 +897,11 @@ class _TicketPageState extends State<TicketPage> {
             slivers: [
               SliverAppBar(
                 backgroundColor: const Color(0xFFE0F4FF),
-                title: Center(
-                  child: Text(
-                    "チケットを選択",
-                    style: TextStyle(
-                      color: Colors.black54,
-                      fontWeight: FontWeight.bold,
-                    ),
+                title: Text(
+                  "チケットを選択",
+                  style: TextStyle(
+                    color: Colors.black54,
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
               ),
