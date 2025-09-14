@@ -1081,10 +1081,12 @@ class ConfirmationPage extends StatelessWidget {
 class EmailInputPage extends StatelessWidget {
   final List<PerformanceData> selectedPerformances;
   final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _numController = TextEditingController();
   EmailInputPage({required this.selectedPerformances, super.key});
   Future<void> addEmailToArray({
     required List<PerformanceData> classNos,
     required String email,
+    required String noOfPeople,
   }) async {
     final docRef = FirebaseFirestore.instance.doc("entries/data");
     await FirebaseFirestore.instance.runTransaction((transaction) async {
@@ -1100,7 +1102,7 @@ class EmailInputPage extends StatelessWidget {
         for (var i in classNos) {
           final List<dynamic> targetArray = (data[i.classnumber] ?? []);
           if (!targetArray.contains(email)) {
-            targetArray.add(email);
+            targetArray.add({'email': email, 'noOfPeople': noOfPeople});
           }
           transaction.update(docRef, {i.classnumber: targetArray});
         }
@@ -1108,6 +1110,7 @@ class EmailInputPage extends StatelessWidget {
         buffer.writeln(
           '鯱光祭チケットシステムをご利用いただきありがとうございます。\nチケット抽選の受付が完了しました。\n\n----------\n',
         );
+        buffer.writeln("人数: $noOfPeople\n");
         for (int i = 0; i < selectedPerformances.length; i++) {
           buffer.writeln(
             '発表名: ${selectedPerformances[i].classnumber} ${selectedPerformances[i].title}\n日時:　 ${selectedPerformances[i].date}${selectedPerformances[i].time} @${selectedPerformances[i].venue}\n',
@@ -1199,15 +1202,34 @@ class EmailInputPage extends StatelessWidget {
                 ),
                 keyboardType: TextInputType.emailAddress,
               ),
+              const SizedBox(height: 20),
+              TextFormField(
+                controller: _numController,
+                decoration: const InputDecoration(
+                  labelText: '人数',
+                  border: OutlineInputBorder(),
+                  prefixIcon: Icon(Icons.person),
+                ),
+                validator: (value) {
+                  RegExp numRegex = RegExp(r'^[1-3]$');
+                  if (!numRegex.hasMatch(value!)) {
+                    return '1~3の数字を入力してください。';
+                  }
+                },
+                autovalidateMode: AutovalidateMode.onUserInteraction,
+                keyboardType: TextInputType.number,
+              ),
               const SizedBox(height: 40),
               Center(
                 child: ElevatedButton(
                   onPressed: () async {
                     final email = _emailController.text;
-                    if (email.isNotEmpty && email.contains('@')) {
+                    final nOfP = _numController.text;
+                    if (email.isNotEmpty && nOfP.isNotEmpty) {
                       await addEmailToArray(
                         email: email,
                         classNos: selectedPerformances,
+                        noOfPeople: nOfP,
                       );
                       if (!context.mounted) return;
                       Navigator.pushAndRemoveUntil(
@@ -1221,7 +1243,7 @@ class EmailInputPage extends StatelessWidget {
                       ScaffoldMessenger.of(context).clearSnackBars();
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(
-                          content: Text('有効なメールアドレスを入力してください。'),
+                          content: Text('記入された内容を確認してください。'),
                           duration: Duration(seconds: 2),
                         ),
                       );
