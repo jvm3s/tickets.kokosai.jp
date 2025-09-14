@@ -375,7 +375,7 @@ class _MainPageState extends State<MainPage> with WidgetsBindingObserver {
                                         ),
                                         const SizedBox(height: 10),
                                         Text(
-                                          "予約は抽選制です\n募集締め切り＆抽選は9/25です",
+                                          "予約は抽選制です\n募集締め切りは9/25です",
                                           style: TextStyle(
                                             fontSize: 25,
                                             color: const Color.fromARGB(
@@ -388,7 +388,7 @@ class _MainPageState extends State<MainPage> with WidgetsBindingObserver {
                                           ),
                                         ),
                                         Text(
-                                          "・劇の予約は１メールアドレスにつき最大３演目まで、最大３名までのグループとして予約可能です。ただし同じ時間帯の予約は１演目しかできません。\n・抽選結果は9/25にメールでお知らせします。\n・メールアドレスは複数使用しないでください。",
+                                          "・劇の予約は１メールアドレスにつき最大３演目まで、最大３名までのグループとして予約可能です。ただし同じ時間帯の予約は１演目しかできません。\n・抽選結果は9/26にメールでお知らせします。\n・メールアドレスは複数使用しないでください。",
                                           style: TextStyle(
                                             fontSize: 16,
                                             color: Colors.black.withOpacity(
