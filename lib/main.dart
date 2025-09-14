@@ -388,7 +388,7 @@ class _MainPageState extends State<MainPage> with WidgetsBindingObserver {
                                           ),
                                         ),
                                         Text(
-                                          "・劇の予約は一人につき3件まで可能です。ただし同じ時間帯の予約は1件しかできません。\n・抽選結果は9/25にメールでお知らせします。\n・メールアドレスは複数使用しないでください。",
+                                          "・劇の予約は１メールアドレスにつき最大３演目まで、最大３名までのグループとして予約可能です。ただし同じ時間帯の予約は１演目しかできません。\n・抽選結果は9/25にメールでお知らせします。\n・メールアドレスは複数使用しないでください。",
                                           style: TextStyle(
                                             fontSize: 16,
                                             color: Colors.black.withOpacity(
