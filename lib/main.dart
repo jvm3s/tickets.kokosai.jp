@@ -138,9 +138,9 @@ class _MainPageState extends State<MainPage> with WidgetsBindingObserver {
           for (dynamic unit in data!["301"]) {
             if (unit is! String) {
               if (unit["noOfPeople"] == null ||
-                  (unit["noOfPeople"] != 1 &&
-                      unit["noOfPeople"] != 1 &&
-                      unit["noOfPeople"] != 1)) {
+                  (unit["noOfPeople"] != "1" &&
+                      unit["noOfPeople"] != "2" &&
+                      unit["noOfPeople"] != "3")) {
                 num1 = num1 + 1;
               } else {
                 num1 = num1 + int.parse(unit["noOfPeople"]);
@@ -152,9 +152,9 @@ class _MainPageState extends State<MainPage> with WidgetsBindingObserver {
           for (dynamic unit in data!["302"]) {
             if (unit is! String) {
               if (unit["noOfPeople"] == null ||
-                  (unit["noOfPeople"] != 1 &&
-                      unit["noOfPeople"] != 1 &&
-                      unit["noOfPeople"] != 1)) {
+                  (unit["noOfPeople"] != "1" &&
+                      unit["noOfPeople"] != "2" &&
+                      unit["noOfPeople"] != "3")) {
                 num2 = num2 + 1;
               } else {
                 num2 = num2 + int.parse(unit["noOfPeople"]);
@@ -166,9 +166,9 @@ class _MainPageState extends State<MainPage> with WidgetsBindingObserver {
           for (dynamic unit in data!["303"]) {
             if (unit is! String) {
               if (unit["noOfPeople"] == null ||
-                  (unit["noOfPeople"] != 1 &&
-                      unit["noOfPeople"] != 1 &&
-                      unit["noOfPeople"] != 1)) {
+                  (unit["noOfPeople"] != "1" &&
+                      unit["noOfPeople"] != "2" &&
+                      unit["noOfPeople"] != "3")) {
                 num3 = num3 + 1;
               } else {
                 num3 = num3 + int.parse(unit["noOfPeople"]);
@@ -180,9 +180,9 @@ class _MainPageState extends State<MainPage> with WidgetsBindingObserver {
           for (dynamic unit in data!["304"]) {
             if (unit is! String) {
               if (unit["noOfPeople"] == null ||
-                  (unit["noOfPeople"] != 1 &&
-                      unit["noOfPeople"] != 1 &&
-                      unit["noOfPeople"] != 1)) {
+                  (unit["noOfPeople"] != "1" &&
+                      unit["noOfPeople"] != "2" &&
+                      unit["noOfPeople"] != "3")) {
                 num4 = num4 + 1;
               } else {
                 num4 = num4 + int.parse(unit["noOfPeople"]);
@@ -194,9 +194,9 @@ class _MainPageState extends State<MainPage> with WidgetsBindingObserver {
           for (dynamic unit in data!["305"]) {
             if (unit is! String) {
               if (unit["noOfPeople"] == null ||
-                  (unit["noOfPeople"] != 1 &&
-                      unit["noOfPeople"] != 1 &&
-                      unit["noOfPeople"] != 1)) {
+                  (unit["noOfPeople"] != "1" &&
+                      unit["noOfPeople"] != "2" &&
+                      unit["noOfPeople"] != "3")) {
                 num5 = num5 + 1;
               } else {
                 num5 = num5 + int.parse(unit["noOfPeople"]);
@@ -208,9 +208,9 @@ class _MainPageState extends State<MainPage> with WidgetsBindingObserver {
           for (dynamic unit in data!["306"]) {
             if (unit is! String) {
               if (unit["noOfPeople"] == null ||
-                  (unit["noOfPeople"] != 1 &&
-                      unit["noOfPeople"] != 1 &&
-                      unit["noOfPeople"] != 1)) {
+                  (unit["noOfPeople"] != "1" &&
+                      unit["noOfPeople"] != "2" &&
+                      unit["noOfPeople"] != "3")) {
                 num6 = num6 + 1;
               } else {
                 num6 = num6 + int.parse(unit["noOfPeople"]);
@@ -222,9 +222,9 @@ class _MainPageState extends State<MainPage> with WidgetsBindingObserver {
           for (dynamic unit in data!["307"]) {
             if (unit is! String) {
               if (unit["noOfPeople"] == null ||
-                  (unit["noOfPeople"] != 1 &&
-                      unit["noOfPeople"] != 1 &&
-                      unit["noOfPeople"] != 1)) {
+                  (unit["noOfPeople"] != "1" &&
+                      unit["noOfPeople"] != "2" &&
+                      unit["noOfPeople"] != "3")) {
                 num7 = num7 + 1;
               } else {
                 num7 = num7 + int.parse(unit["noOfPeople"]);
@@ -236,9 +236,9 @@ class _MainPageState extends State<MainPage> with WidgetsBindingObserver {
           for (dynamic unit in data!["308"]) {
             if (unit is! String) {
               if (unit["noOfPeople"] == null ||
-                  (unit["noOfPeople"] != 1 &&
-                      unit["noOfPeople"] != 1 &&
-                      unit["noOfPeople"] != 1)) {
+                  (unit["noOfPeople"] != "1" &&
+                      unit["noOfPeople"] != "2" &&
+                      unit["noOfPeople"] != "3")) {
                 num8 = num8 + 1;
               } else {
                 num8 = num8 + int.parse(unit["noOfPeople"]);
@@ -250,9 +250,9 @@ class _MainPageState extends State<MainPage> with WidgetsBindingObserver {
           for (dynamic unit in data!["309"]) {
             if (unit is! String) {
               if (unit["noOfPeople"] == null ||
-                  (unit["noOfPeople"] != 1 &&
-                      unit["noOfPeople"] != 1 &&
-                      unit["noOfPeople"] != 1)) {
+                  (unit["noOfPeople"] != "1" &&
+                      unit["noOfPeople"] != "2" &&
+                      unit["noOfPeople"] != "3")) {
                 num9 = num9 + 1;
               } else {
                 num9 = num9 + int.parse(unit["noOfPeople"]);
