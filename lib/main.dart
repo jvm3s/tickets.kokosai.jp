@@ -90,7 +90,8 @@ class _MainPageState extends State<MainPage> with WidgetsBindingObserver {
   final ValueNotifier<double> scrollOffsetNotifier = ValueNotifier(0.0);
   bool _shouldAnimateIn = false;
   bool _shouldAnimateIncard = false;
-
+  // ↓trueならprintで予約人数表示
+  bool culculateheadsnumber = true;
   @override
   void initState() {
     super.initState();
@@ -112,6 +113,164 @@ class _MainPageState extends State<MainPage> with WidgetsBindingObserver {
     _scrollController.addListener(() {
       scrollOffsetNotifier.value = _scrollController.offset;
     });
+  }
+
+  // 予約人数計算
+  void culculateheadsnumberfunction() async {
+    await FirebaseFirestore.instance
+        .collection("entries")
+        .doc("data")
+        .get()
+        .then((value) {
+          // print(value.data());
+          final data = value.data();
+          int num1 = 0;
+          int num2 = 0;
+          int num3 = 0;
+          int num4 = 0;
+          int num5 = 0;
+          int num6 = 0;
+          int num7 = 0;
+          int num8 = 0;
+          int num9 = 0;
+          print(data!["306"]);
+
+          for (dynamic unit in data!["301"]) {
+            if (unit is! String) {
+              if (unit["noOfPeople"] == null ||
+                  (unit["noOfPeople"] != 1 &&
+                      unit["noOfPeople"] != 1 &&
+                      unit["noOfPeople"] != 1)) {
+                num1 = num1 + 1;
+              } else {
+                num1 = num1 + int.parse(unit["noOfPeople"]);
+              }
+            } else {
+              num1 = num1 + 1;
+            }
+          }
+          for (dynamic unit in data!["302"]) {
+            if (unit is! String) {
+              if (unit["noOfPeople"] == null ||
+                  (unit["noOfPeople"] != 1 &&
+                      unit["noOfPeople"] != 1 &&
+                      unit["noOfPeople"] != 1)) {
+                num2 = num2 + 1;
+              } else {
+                num2 = num2 + int.parse(unit["noOfPeople"]);
+              }
+            } else {
+              num2 = num2 + 1;
+            }
+          }
+          for (dynamic unit in data!["303"]) {
+            if (unit is! String) {
+              if (unit["noOfPeople"] == null ||
+                  (unit["noOfPeople"] != 1 &&
+                      unit["noOfPeople"] != 1 &&
+                      unit["noOfPeople"] != 1)) {
+                num3 = num3 + 1;
+              } else {
+                num3 = num3 + int.parse(unit["noOfPeople"]);
+              }
+            } else {
+              num3 = num3 + 1;
+            }
+          }
+          for (dynamic unit in data!["304"]) {
+            if (unit is! String) {
+              if (unit["noOfPeople"] == null ||
+                  (unit["noOfPeople"] != 1 &&
+                      unit["noOfPeople"] != 1 &&
+                      unit["noOfPeople"] != 1)) {
+                num4 = num4 + 1;
+              } else {
+                num4 = num4 + int.parse(unit["noOfPeople"]);
+              }
+            } else {
+              num4 = num4 + 1;
+            }
+          }
+          for (dynamic unit in data!["305"]) {
+            if (unit is! String) {
+              if (unit["noOfPeople"] == null ||
+                  (unit["noOfPeople"] != 1 &&
+                      unit["noOfPeople"] != 1 &&
+                      unit["noOfPeople"] != 1)) {
+                num5 = num5 + 1;
+              } else {
+                num5 = num5 + int.parse(unit["noOfPeople"]);
+              }
+            } else {
+              num5 = num5 + 1;
+            }
+          }
+          for (dynamic unit in data!["306"]) {
+            if (unit is! String) {
+              if (unit["noOfPeople"] == null ||
+                  (unit["noOfPeople"] != 1 &&
+                      unit["noOfPeople"] != 1 &&
+                      unit["noOfPeople"] != 1)) {
+                num6 = num6 + 1;
+              } else {
+                num6 = num6 + int.parse(unit["noOfPeople"]);
+              }
+            } else {
+              num6 = num6 + 1;
+            }
+          }
+          for (dynamic unit in data!["307"]) {
+            if (unit is! String) {
+              if (unit["noOfPeople"] == null ||
+                  (unit["noOfPeople"] != 1 &&
+                      unit["noOfPeople"] != 1 &&
+                      unit["noOfPeople"] != 1)) {
+                num7 = num7 + 1;
+              } else {
+                num7 = num7 + int.parse(unit["noOfPeople"]);
+              }
+            } else {
+              num7 = num7 + 1;
+            }
+          }
+          for (dynamic unit in data!["308"]) {
+            if (unit is! String) {
+              if (unit["noOfPeople"] == null ||
+                  (unit["noOfPeople"] != 1 &&
+                      unit["noOfPeople"] != 1 &&
+                      unit["noOfPeople"] != 1)) {
+                num8 = num8 + 1;
+              } else {
+                num8 = num8 + int.parse(unit["noOfPeople"]);
+              }
+            } else {
+              num8 = num8 + 1;
+            }
+          }
+          for (dynamic unit in data!["309"]) {
+            if (unit is! String) {
+              if (unit["noOfPeople"] == null ||
+                  (unit["noOfPeople"] != 1 &&
+                      unit["noOfPeople"] != 1 &&
+                      unit["noOfPeople"] != 1)) {
+                num9 = num9 + 1;
+              } else {
+                num9 = num9 + int.parse(unit["noOfPeople"]);
+              }
+            } else {
+              num9 = num9 + 1;
+            }
+          }
+          print("301:$num1");
+          print("302:$num2");
+          print("303:$num3");
+          print("304:$num4");
+          print("305:$num5");
+          print("306:$num6");
+          print("307:$num7");
+          print("308:$num8");
+          print("309:$num9");
+        });
   }
 
   @override
@@ -183,6 +342,9 @@ class _MainPageState extends State<MainPage> with WidgetsBindingObserver {
 
   @override
   Widget build(BuildContext context) {
+    if (culculateheadsnumber) {
+      culculateheadsnumberfunction();
+    }
     return Scaffold(
       backgroundColor: const Color(0xFFE0F4FF),
       body: NotificationListener<ScrollNotification>(
