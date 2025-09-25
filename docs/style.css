@@ -1,0 +1,75 @@
+body {
+    background-color: #f4f2e9;
+    /* わずかに温かみのあるオフホワイト */
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    color: #333;
+    /* 落ち着いたダークグレー */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    padding: 20px;
+    box-sizing: border-box;
+    line-height: 1.6;
+}
+
+.container {
+    text-align: center;
+    background-color: #fff;
+    padding: 50px;
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    max-width: 650px;
+    width: 100%;
+    border: 1px solid #ddd;
+    box-sizing: border-box;
+}
+
+h1 {
+    font-size: 2.2em;
+    color: #4b4b4b;
+    /* 少し濃いめのグレー */
+    letter-spacing: 1px;
+    margin-bottom: 10px;
+    font-weight: 300;
+    /* 細めのフォント */
+}
+
+h2 {
+    font-size: 1.6em;
+    color: #6a6a6a;
+    /* 落ち着いたミドルグレー */
+    margin-top: 0;
+    font-weight: 400;
+}
+
+b {
+    font-weight: 700;
+}
+
+p {
+    font-size: 1.1em;
+    margin-bottom: 25px;
+}
+
+a {
+    color: #8b5e3c;
+    /* 落ち着いたブラウン */
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: #5a3c26;
+    /* より濃いブラウン */
+    text-decoration: underline;
+}
+
+.container>p:last-child {
+    font-size: 0.8em;
+    color: #aaa;
+    margin-top: 40px;
+    margin-bottom: 0;
+}
